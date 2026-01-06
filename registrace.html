@@ -365,16 +365,38 @@
       try {
         console.log('Sending data:', formDataObj);
         
-        // Pro no-cors musíme poslat data jako JSON string v body
-        // Google Apps Script potřebuje správně parsovat postData.contents
         const jsonData = JSON.stringify(formDataObj);
+        const isLocalFile = window.location.protocol === 'file:';
         
-        // Zkusíme nejdřív normální fetch (abychom viděli odpověď)
-        let response;
-        let useNoCors = false;
-        
-        try {
-          response = await fetch(CONFIG.SCRIPT_ENDPOINT_URL, {
+        if (isLocalFile) {
+          // Pro lokální soubory (file://) použijeme GET s URL parametry
+          console.log('Running from file://, using GET with URL parameters');
+          
+          const params = new URLSearchParams();
+          params.append('data', jsonData);
+          
+          const urlWithParams = CONFIG.SCRIPT_ENDPOINT_URL + '?' + params.toString();
+          console.log('GET URL:', urlWithParams.substring(0, 100) + '...');
+          
+          await fetch(urlWithParams, {
+            method: 'GET',
+            mode: 'no-cors'
+          });
+          
+          // S no-cors nemůžeme číst odpověď, ale data by se měla odeslat
+          console.log('Request sent with no-cors mode');
+          showMessage('success', '✓ Odesláno! Děkujeme za váš zájem, brzy se vám ozveme.');
+          form.reset();
+          document.getElementById('source').value = window.location.href;
+          setTimeout(() => {
+            messagesDiv.innerHTML = '';
+          }, 5000);
+          
+        } else {
+          // Pro HTTP/HTTPS použijeme normální POST
+          console.log('Running from HTTP/HTTPS, using normal POST');
+          
+          const response = await fetch(CONFIG.SCRIPT_ENDPOINT_URL, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',
@@ -383,16 +405,7 @@
           });
           
           console.log('Response status:', response.status);
-          console.log('Response ok:', response.ok);
           
-          // Pokud response není ok, zkusíme přečíst chybu
-          if (!response.ok) {
-            const errorText = await response.text();
-            console.error('Error response:', errorText);
-            throw new Error('Server returned error: ' + response.status);
-          }
-          
-          // Přečteme odpověď
           const responseText = await response.text();
           console.log('Response text:', responseText);
           
@@ -400,8 +413,7 @@
           try {
             result = JSON.parse(responseText);
           } catch (e) {
-            // Pokud není JSON, předpokládáme úspěch
-            result = { ok: true };
+            result = { ok: response.ok };
           }
           
           if (result.ok) {
@@ -411,40 +423,9 @@
             setTimeout(() => {
               messagesDiv.innerHTML = '';
             }, 5000);
-            return; // Úspěch, ukončíme
           } else {
             throw new Error(result.error || 'Chyba při odesílání');
           }
-          
-        } catch (fetchError) {
-          // Pokud selže kvůli CORS, použijeme no-cors jako fallback
-          if (fetchError.message.includes('CORS') || fetchError.message.includes('Failed to fetch')) {
-            console.log('CORS error detected, using no-cors fallback');
-            useNoCors = true;
-          } else {
-            throw fetchError; // Jiná chyba, propagujeme ji
-          }
-        }
-        
-        // Fallback: použijeme no-cors s JSON stringem
-        if (useNoCors) {
-          console.log('Using no-cors mode with JSON body');
-          await fetch(CONFIG.SCRIPT_ENDPOINT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: jsonData
-          });
-          
-          // S no-cors nemůžeme číst odpověď, předpokládáme úspěch
-          showMessage('success', '✓ Odesláno! Děkujeme za váš zájem, brzy se vám ozveme.');
-          form.reset();
-          document.getElementById('source').value = window.location.href;
-          setTimeout(() => {
-            messagesDiv.innerHTML = '';
-          }, 5000);
         }
 
       } catch (error) {
