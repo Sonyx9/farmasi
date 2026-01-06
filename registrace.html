@@ -365,80 +365,33 @@
       try {
         console.log('Sending data:', formDataObj);
         
+        // Jednoduchý GET request s daty v URL (funguje spolehlivě)
         const jsonData = JSON.stringify(formDataObj);
+        const url = CONFIG.SCRIPT_ENDPOINT_URL + '?data=' + encodeURIComponent(jsonData);
         
-        // Zkusíme nejdřív GET s mode: 'cors' (abychom viděli odpověď)
-        // Použijeme encodeURIComponent pro správné kódování JSON dat
-        const encodedData = encodeURIComponent(jsonData);
-        const urlWithParams = CONFIG.SCRIPT_ENDPOINT_URL + '?data=' + encodedData;
+        const response = await fetch(url, {
+          method: 'GET'
+        });
         
-        console.log('JSON data length:', jsonData.length);
-        console.log('Full URL length:', urlWithParams.length);
-        console.log('URL (first 200 chars):', urlWithParams.substring(0, 200));
-        console.log('Trying GET with CORS first');
-        let response;
-        let useNoCors = false;
+        const responseText = await response.text();
+        console.log('Response:', responseText);
         
+        let result;
         try {
-          response = await fetch(urlWithParams, {
-            method: 'GET',
-            mode: 'cors'
-          });
-          
-          console.log('Response status:', response.status);
-          const responseText = await response.text();
-          console.log('Response text:', responseText);
-          
-          let result;
-          try {
-            result = JSON.parse(responseText);
-          } catch (e) {
-            result = { ok: response.ok };
-          }
-          
-          if (result.ok) {
-            showMessage('success', '✓ Odesláno! Děkujeme za váš zájem, brzy se vám ozveme.');
-            form.reset();
-            document.getElementById('source').value = window.location.href;
-            setTimeout(() => {
-              messagesDiv.innerHTML = '';
-            }, 5000);
-            return; // Úspěch
-          } else {
-            throw new Error(result.error || 'Chyba při odesílání');
-          }
-          
-        } catch (fetchError) {
-          // Pokud selže kvůli CORS, použijeme no-cors jako fallback
-          if (fetchError.message.includes('CORS') || fetchError.message.includes('Failed to fetch')) {
-            console.log('CORS error, using no-cors fallback');
-            useNoCors = true;
-          } else {
-            throw fetchError;
-          }
+          result = JSON.parse(responseText);
+        } catch (e) {
+          result = { ok: false, error: 'Invalid response' };
         }
         
-        // Fallback: no-cors s POST a form-data (může fungovat lépe než GET)
-        if (useNoCors) {
-          console.log('Using POST with form-data and no-cors mode');
-          
-          // Vytvoříme FormData objekt
-          const formData = new FormData();
-          formData.append('data', jsonData);
-          
-          await fetch(CONFIG.SCRIPT_ENDPOINT_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            body: formData
-          });
-          
-          console.log('Request sent with no-cors POST (data should be saved)');
+        if (result.ok) {
           showMessage('success', '✓ Odesláno! Děkujeme za váš zájem, brzy se vám ozveme.');
           form.reset();
           document.getElementById('source').value = window.location.href;
           setTimeout(() => {
             messagesDiv.innerHTML = '';
           }, 5000);
+        } else {
+          throw new Error(result.error || 'Chyba při odesílání');
         }
 
       } catch (error) {
