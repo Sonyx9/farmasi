@@ -29,6 +29,8 @@
     
     body {
       font-family: 'Inter', sans-serif;
+      background: linear-gradient(135deg, #FFF5F5 0%, #F8E8E8 100%);
+      min-height: 100vh;
     }
     
     h1, h2, h3 {
@@ -94,9 +96,10 @@
     }
   </style>
 </head>
-<body class="font-sans text-gray-800 bg-gray-50">
+<body class="font-sans text-gray-800 bg-gray-50 relative">
+  <div class="fixed inset-0 bg-center bg-cover opacity-5 pointer-events-none" style="background-image: url('https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1920'); z-index: 0;"></div>
   <!-- Header -->
-  <header class="bg-white shadow-sm border-b border-farmasi-pink">
+  <header class="relative bg-white shadow-sm border-b border-farmasi-pink z-10">
     <nav class="max-w-7xl mx-auto flex items-center justify-between px-4 py-4 lg:px-8">
       <a href="index.html" class="flex flex-col items-start logo-container">
         <img 
@@ -112,10 +115,10 @@
     </nav>
   </header>
 
-  <main>
+  <main class="relative z-10">
     <!-- Registration Section -->
-    <section class="py-[17px] hero-gradient">
-      <div class="max-w-2xl mx-auto px-4 w-full">
+    <section class="relative pt-[17px] pb-8 hero-gradient">
+      <div class="relative max-w-2xl mx-auto px-4 w-full z-10">
         <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8">
           <!-- Header -->
           <div class="text-center mb-6">
@@ -217,7 +220,7 @@
                   class="mt-1 w-4 h-4 text-farmasi-rose border-gray-300 rounded focus:ring-farmasi-rose"
                 />
                 <span class="text-xs text-gray-700">
-                  Souhlasím se <a href="#" class="text-farmasi-rose hover:underline">zpracováním osobních údajů</a> <span class="text-red-500">*</span>
+                  Souhlasím se <a href="https://www.freedomfashion.cz/podminky-ochrany-osobnich-udaju/" target="_blank" class="text-farmasi-rose hover:underline">zpracováním osobních údajů</a> <span class="text-red-500">*</span>
                 </span>
               </label>
               <div id="gdpr-error" class="error-message"></div>
