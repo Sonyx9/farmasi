@@ -20,7 +20,7 @@
         ? "Oficiální kosmetika z populární reality show"
         : "Kosmetika známá z ostrova lásky",
       productBadge: "Viděno na ostrově lásky",
-      reviewsContext: "Produkty, které znáte z ostrova lásky – výsledky mluví za vše"
+      reviewsContext: "Kosmetika známá i z televizních formátů. Kvalita, kterou potvrzují skutečné zkušenosti."
     };
     // ============================================
     
@@ -450,11 +450,11 @@
 
   <main>
     <!-- Hero Section -->
-    <section id="hero" class="relative flex items-center justify-center text-center hero-gradient min-h-screen pt-20 pb-16 px-4">
+    <section id="hero" class="relative flex items-center justify-center text-center hero-gradient px-4" style="padding-top: 80px; padding-bottom: 60px; min-height: auto;">
       <div class="absolute inset-0 bg-center bg-cover opacity-5" style="background-image: url('https://images.unsplash.com/photo-1596462502278-27bfdc403348?w=1920');"></div>
       <div class="relative max-w-4xl mx-auto z-10">
         <h1 class="text-4xl md:text-6xl lg:text-7xl font-bold mb-4 text-farmasi-dark leading-tight">
-          Krása a <span class="gold-accent">příležitost</span> v jednom
+          Když se <span class="gold-accent">krása</span> <span class="gold-accent">spojí</span> s láskou
         </h1>
         <!-- Love Island Trust Badge (under H1) -->
         <div class="inline-flex items-center gap-2 text-xs md:text-sm text-gray-600 mb-6 px-3 py-1.5 border border-farmasi-gold/30 rounded-full bg-white/50">
@@ -462,11 +462,11 @@
           <span id="hero-love-island-badge" class="font-medium"></span>
         </div>
         <p class="text-base md:text-lg mb-10 text-gray-500 font-light max-w-2xl mx-auto">
-          Stejná kosmetika, kterou používají soutěžící v populární reality show!
+          Stejná kosmetika, se kterou soutěžící září ve vile. Dlouhotrvající make-up, sunkissed pleť a sebevědomí hodné bombshell momentu.
         </p>
         <div class="flex flex-col sm:flex-row sm:justify-center space-y-4 sm:space-y-0 sm:space-x-6">
           <a href="https://www.farmasi.cz/cz20083689" target="_blank" class="btn-primary text-white font-semibold px-8 py-4 rounded-lg text-lg shadow-lg">
-            Nakupovat
+            Vyber si svůj match
           </a>
           <a href="https://www.farmasi.cz/cz20083689/register/customer" target="_blank" class="btn-secondary text-farmasi-rose font-semibold px-8 py-4 rounded-lg text-lg">
             Přidat se k týmu
@@ -474,11 +474,11 @@
         </div>
       </div>
       <!-- Scroll Indicator -->
-      <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      <a href="#bestsellers" id="scroll-indicator" class="absolute bottom-4 left-1/2 transform -translate-x-1/2 animate-bounce cursor-pointer">
         <svg class="w-6 h-6 text-farmasi-rose" fill="none" stroke="currentColor" viewBox="0 0 24 24">
           <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path>
         </svg>
-      </div>
+      </a>
     </section>
 
     <!-- Categories Section -->
@@ -496,9 +496,10 @@
               />
               <span class="absolute top-2 right-2 bg-red-500 text-white text-xs font-bold px-3 py-1 rounded-full">AKCE</span>
             </div>
-            <h3 class="font-bold text-xl mb-3 text-farmasi-dark">Akční produkty</h3>
+            <h3 class="font-bold text-xl mb-2 text-farmasi-dark">Akční produkty</h3>
+            <p class="text-farmasi-rose font-semibold text-sm mb-3">Hot picks nejen z vily</p>
             <p class="text-gray-600 text-sm mb-4 leading-relaxed flex-grow">
-              Speciální nabídky a slevy na vybrané produkty. Nevynechejte skvělé příležitosti!
+              Speciální nabídky a slevy na produkty, které mizí rychleji než single ve vile.
             </p>
             <a href="https://www.farmasi.cz/cz20083689" target="_blank" class="w-full btn-primary text-white font-semibold px-6 py-3 rounded-lg inline-block mt-auto">
               Prohlédnout akce →
@@ -518,9 +519,10 @@
                 <span id="product-badge-1"></span>
               </span>
             </div>
-            <h3 class="font-bold text-xl mb-3 text-farmasi-dark">Péče o pleť</h3>
+            <h3 class="font-bold text-xl mb-2 text-farmasi-dark">Péče o pleť</h3>
+            <p class="text-farmasi-rose font-semibold text-sm mb-3">Sunkissed & flawless</p>
             <p class="text-gray-600 text-sm mb-4 leading-relaxed flex-grow">
-              Krémy, séra a masky pro dokonalou pleť. Profesionální péče, kterou si zasloužíte.
+              Krémy, séra a masky pro pleť, která obstojí v každém close-upu. Každý den jako na ostrově.
             </p>
             <a href="https://www.farmasi.cz/cz20083689" target="_blank" class="w-full btn-primary text-white font-semibold px-6 py-3 rounded-lg inline-block mt-auto">
               Prohlédnout produkty →
@@ -536,9 +538,10 @@
                 class="h-48 w-full object-cover rounded-lg mb-4"
               />
             </div>
-            <h3 class="font-bold text-xl mb-3 text-farmasi-dark">Péče o vlasy</h3>
+            <h3 class="font-bold text-xl mb-2 text-farmasi-dark">Péče o vlasy</h3>
+            <p class="text-farmasi-rose font-semibold text-sm mb-3">Hair goals approved</p>
             <p class="text-gray-600 text-sm mb-4 leading-relaxed flex-grow">
-              Šampony, kondicionéry a stylingové produkty pro zdravé a krásné vlasy.
+              Šampony, kondicionéry a styling pro vlasy, které drží tvar celý den – i při poolside dramatu.
             </p>
             <a href="https://www.farmasi.cz/cz20083689" target="_blank" class="w-full btn-primary text-white font-semibold px-6 py-3 rounded-lg inline-block mt-auto">
               Prohlédnout produkty →
@@ -582,29 +585,29 @@
           <!-- Left: Content -->
           <div>
             <h2 class="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 text-farmasi-dark leading-tight">
-              Kosmetika známá <span class="gold-accent">z ostrova lásky</span>
+              Kosmetika, kterou si <span class="gold-accent">zamilujete</span>
             </h2>
             <p class="text-lg md:text-xl mb-6 text-gray-700 leading-relaxed">
-              Stejnou kosmetiku, kterou používají soutěžící z ostrova lásky, si nyní můžete pořídit i vy!
+              Kosmetika Farmasi je známá svou kvalitou, výdrží a přirozeným efektem. Produkty, které jste mohli zahlédnout i v populárních televizních formátech, si nyní můžete vybrat i pro svou každodenní rutinu – bez kompromisů.
             </p>
             <div class="space-y-4 mb-8">
               <div class="flex items-start gap-3">
                 <div class="w-6 h-6 rounded-full bg-farmasi-gold/30 flex items-center justify-center flex-shrink-0 mt-1">
                   <span class="text-farmasi-gold font-bold text-sm">✓</span>
                 </div>
-                <p class="text-gray-700">Stejné produkty, které znáte z ostrova lásky</p>
+                <p class="text-gray-700">Pečlivě vybrané produkty ověřené v praxi</p>
               </div>
               <div class="flex items-start gap-3">
                 <div class="w-6 h-6 rounded-full bg-farmasi-gold/30 flex items-center justify-center flex-shrink-0 mt-1">
                   <span class="text-farmasi-gold font-bold text-sm">✓</span>
                 </div>
-                <p class="text-gray-700">Profesionální kvalita pro každodenní použití</p>
+                <p class="text-gray-700">Profesionální kvalita vhodná pro každodenní použití</p>
               </div>
               <div class="flex items-start gap-3">
                 <div class="w-6 h-6 rounded-full bg-farmasi-gold/30 flex items-center justify-center flex-shrink-0 mt-1">
                   <span class="text-farmasi-gold font-bold text-sm">✓</span>
                 </div>
-                <p class="text-gray-700">Kosmetika, která obstojí i před kamerami</p>
+                <p class="text-gray-700">Líčení a péče, které vypadají skvěle i v náročných podmínkách</p>
               </div>
             </div>
             <div class="flex flex-col sm:flex-row gap-4">
@@ -642,29 +645,41 @@
             Příležitost s <span class="gold-accent">Farmasi</span>
           </h2>
           <p class="text-lg text-gray-700 mb-4 max-w-3xl mx-auto">
-            Přidejte se k týmu Farmasi a získejte <strong class="gold-accent text-xl">okamžitou slevu 23%</strong> na produkty.
+            Staňte se součástí Farmasi a získejte okamžitou slevu 23 % na produkty pro sebe i své blízké.
           </p>
           <p class="text-gray-600 max-w-2xl mx-auto">
-            Vydělávejte sdílením krásy – provize z prodeje, bonusy a až 100% příjmy navíc čekají na vás!
+            Farmasi nabízí možnost přivýdělku formou doporučení – bez povinných závazků. Sdílíte produkty, které vás baví, a získáváte provize, bonusy i prostor pro další růst.
           </p>
         </div>
         
         <!-- Benefits Grid -->
         <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
           <div class="bg-farmasi-pink/50 p-6 rounded-lg text-center">
-            <div class="text-3xl mb-3">💰</div>
+            <div class="mb-3 flex justify-center">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1.41 16.09V20h-2.67v-1.93c-1.71-.36-3.16-1.46-3.27-3.4h1.96c.1 1.05.82 1.87 2.65 1.87 1.96 0 2.4-.98 2.4-1.59 0-.83-.44-1.61-2.67-2.14-2.48-.6-4.18-1.62-4.18-3.67 0-1.72 1.39-2.84 3.11-3.21V4h2.67v1.95c1.86.45 2.79 1.86 2.85 3.39H14.3c-.05-1.11-.64-1.87-2.22-1.87-1.5 0-2.4.68-2.4 1.64 0 .84.65 1.39 2.67 1.91s4.18 1.39 4.18 3.91c-.01 1.83-1.38 2.83-3.12 3.16z" fill="#D4AF37"/>
+              </svg>
+            </div>
             <h3 class="font-bold mb-2">Provize z prodeje</h3>
-            <p class="text-sm text-gray-600">Vydělávejte z každého doporučení</p>
+            <p class="text-sm text-gray-600">Získávejte odměnu z každého doporučeného produktu.</p>
           </div>
           <div class="bg-farmasi-pink/50 p-6 rounded-lg text-center">
-            <div class="text-3xl mb-3">🎁</div>
-            <h3 class="font-bold mb-2">Bohaté bonusy</h3>
-            <p class="text-sm text-gray-600">Speciální odměny a dárky</p>
+            <div class="mb-3 flex justify-center">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M20 6h-2.18c.11-.31.18-.65.18-1 0-1.66-1.34-3-3-3-1.05 0-1.96.54-2.5 1.35l-.5.67-.5-.68C10.96 2.54 10.05 2 9 2 7.34 2 6 3.34 6 5c0 .35.07.69.18 1H4c-1.11 0-1.99.89-1.99 2L2 19c0 1.11.89 2 2 2h16c1.11 0 2-.89 2-2V8c0-1.11-.89-2-2-2zm-5-2c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zM9 4c.55 0 1 .45 1 1s-.45 1-1 1-1-.45-1-1 .45-1 1-1zm11 15H4v-2h16v2zm0-5H4V8h5.08L7 10.83 8.62 12 11 8.76l1-1.36 1 1.36L15.38 12 17 10.83 14.92 8H20v6z" fill="#D4AF37"/>
+              </svg>
+            </div>
+            <h3 class="font-bold mb-2">Bonusy a benefity</h3>
+            <p class="text-sm text-gray-600">Speciální odměny, dárky a motivační programy.</p>
           </div>
           <div class="bg-farmasi-pink/50 p-6 rounded-lg text-center">
-            <div class="text-3xl mb-3">📈</div>
-            <h3 class="font-bold mb-2">Kariérní růst</h3>
-            <p class="text-sm text-gray-600">Možnost růstu v týmu</p>
+            <div class="mb-3 flex justify-center">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M16 6l2.29 2.29-4.88 4.88-4-4L2 16.59 3.41 18l6-6 4 4 6.3-6.29L22 12V6z" fill="#D4AF37"/>
+              </svg>
+            </div>
+            <h3 class="font-bold mb-2">Možnost růstu</h3>
+            <p class="text-sm text-gray-600">Budujte si vlastní tým nebo zůstaňte jen u výhodného nákupu.</p>
           </div>
         </div>
         
@@ -674,10 +689,10 @@
             Připraveni začít?
           </h3>
           <p class="text-lg text-gray-700 mb-8 max-w-2xl mx-auto">
-            Zaregistrujte se zdarma a získejte okamžitou slevu 23% na všechny produkty Farmasi. Registrace trvá jen 2 minuty!
+            Zaregistrujte se zdarma a získejte 23% slevu na všechny produkty Farmasi. Registrace zabere jen pár minut a otevírá dveře k výhodám, které můžete využívat hned.
           </p>
           <a href="https://www.farmasi.cz/cz20083689/register/customer" target="_blank" class="inline-block btn-primary text-white font-bold px-6 md:px-12 py-5 rounded-lg text-base md:text-xl shadow-lg mb-4 whitespace-nowrap">
-            Zaregistrovat se zdarma →
+            Zaregistrovat se zdarma
           </a>
           <div class="flex items-center justify-center gap-6 text-sm text-gray-600 mt-6">
             <div class="flex items-center gap-2">
@@ -702,10 +717,10 @@
       <div class="max-w-6xl mx-auto px-4">
         <div class="text-center mb-12">
           <h2 class="text-3xl md:text-4xl font-bold mb-4 text-farmasi-dark">
-            Recenze <span class="gold-accent">zákaznic</span>
+            Produkty, které si ženy oblíbily – <span class="gold-accent">výsledky mluví samy za sebe</span>
           </h2>
           <p class="text-gray-600 max-w-2xl mx-auto italic" id="reviews-context">
-            Podívejte se, co říkají naše spokojené zákaznice o produktech Farmasi
+            Kosmetika známá i z televizních formátů. Kvalita, kterou potvrzují skutečné zkušenosti.
           </p>
         </div>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -745,7 +760,7 @@
         </div>
         <div class="text-center mt-12">
           <a href="https://www.farmasi.cz/cz20083689" target="_blank" class="inline-block btn-primary text-white font-semibold px-8 py-3 rounded-lg">
-            Nakupovat →
+            Podívat se do e-shopu →
           </a>
         </div>
       </div>
@@ -766,46 +781,105 @@
           <!-- FAQ item 1 -->
           <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
             <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
-              Je registrace opravdu zdarma?
+              Je kosmetika Farmasi kvalitní a bezpečná?
             </summary>
             <p class="mt-4 text-gray-700 leading-relaxed pl-4">
-              Ano, registrace do klubu Farmasi je zcela zdarma a nezavazuje k žádným povinným nákupům. Můžete se zaregistrovat a využívat slevu 23% na produkty, aniž byste museli cokoliv kupovat.
+              Ano. Farmasi je mezinárodní kosmetická značka s důrazem na kvalitu, bezpečnost a funkčnost produktů. Kosmetika splňuje evropské normy, je dermatologicky testovaná a vhodná pro každodenní použití.
             </p>
           </details>
           <!-- FAQ item 2 -->
           <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
             <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
-              Jak uplatním slevu 23% na produkty?
+              Jsou produkty Farmasi testované na zvířatech?
             </summary>
             <p class="mt-4 text-gray-700 leading-relaxed pl-4">
-              Po registraci nakupujete na oficiálním e-shopu za členské ceny automaticky o 23% nižší než katalogové. Sleva se aplikuje automaticky při přihlášení do vašeho účtu.
+              Ne. Farmasi netestuje své produkty na zvířatech a řídí se evropskou legislativou v oblasti cruelty-free kosmetiky.
             </p>
           </details>
           <!-- FAQ item 3 -->
           <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
             <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
-              Co obnáší spolupráce s Farmasi?
+              Pro jaký typ pleti je kosmetika Farmasi vhodná?
             </summary>
             <p class="mt-4 text-gray-700 leading-relaxed pl-4">
-              Jako člen můžete jen nakupovat se slevou pro sebe, nebo doporučovat produkty dál a získávat provize z objednávek svých známých. Žádné povinnosti, vše je na vás.
+              V nabídce Farmasi najdete produkty pro všechny typy pleti – suchou, citlivou, mastnou i problematickou. Každý produkt má jasně uvedené doporučení, aby bylo snadné vybrat správnou péči právě pro vás.
             </p>
           </details>
           <!-- FAQ item 4 -->
           <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
             <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
-              Jak dlouho trvá registrace?
+              Je Farmasi kosmetika vhodná i pro citlivou pleť?
             </summary>
             <p class="mt-4 text-gray-700 leading-relaxed pl-4">
-              Registrace trvá pouze několik minut. Vyplníte jednoduchý formulář a po potvrzení můžete okamžitě začít nakupovat se slevou.
+              Ano, mnoho produktů Farmasi je vyvíjeno s ohledem na citlivou pleť. Doporučujeme vždy zkontrolovat složení a v případě velmi citlivé pokožky provést test na malé ploše kůže.
             </p>
           </details>
           <!-- FAQ item 5 -->
           <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
             <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
-              Jsou produkty Farmasi vhodné pro citlivou pleť?
+              Jak dlouho vydrží make-up Farmasi během dne?
             </summary>
             <p class="mt-4 text-gray-700 leading-relaxed pl-4">
-              Ano, produkty Farmasi jsou vyrobeny bez parabenů, ftalátů a dalších dráždivých látek. Jsou vhodné i pro citlivou pleť a jsou netestované na zvířatech.
+              Dekorativní kosmetika Farmasi je navržena tak, aby měla dlouhou výdrž i v náročnějších podmínkách. Make-upy, rtěnky i řasenky drží po celý den bez nutnosti častých úprav.
+            </p>
+          </details>
+          <!-- FAQ item 6 -->
+          <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
+            <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
+              Mohu si produkty Farmasi koupit bez registrace?
+            </summary>
+            <p class="mt-4 text-gray-700 leading-relaxed pl-4">
+              Ano, produkty Farmasi je možné běžně zakoupit bez registrace.<br>
+              Registrace je dobrovolná a přináší výhody, jako je sleva 23 % na nákup.
+            </p>
+          </details>
+          <!-- FAQ item 7 -->
+          <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
+            <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
+              Co mi přinese registrace do Farmasi?
+            </summary>
+            <p class="mt-4 text-gray-700 leading-relaxed pl-4">
+              Po registraci získáte:<br>
+              • okamžitou slevu 23 % na všechny produkty<br>
+              • možnost výhodně nakupovat dlouhodobě<br>
+              • případně i možnost přivýdělku formou doporučení<br><br>
+              Registrace je zdarma a nezavazuje vás k žádné další aktivitě.
+            </p>
+          </details>
+          <!-- FAQ item 8 -->
+          <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
+            <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
+              Musím po registraci produkty prodávat?
+            </summary>
+            <p class="mt-4 text-gray-700 leading-relaxed pl-4">
+              Ne. Registrace do Farmasi neznamená povinnost prodávat. Mnoho zákaznic využívá registraci pouze pro výhodnější nákup kosmetiky pro vlastní potřebu.
+            </p>
+          </details>
+          <!-- FAQ item 9 -->
+          <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
+            <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
+              Jak rychle probíhá registrace?
+            </summary>
+            <p class="mt-4 text-gray-700 leading-relaxed pl-4">
+              Registrace do Farmasi je rychlá a jednoduchá – zabere přibližně 2 minuty a výhody můžete využívat okamžitě.
+            </p>
+          </details>
+          <!-- FAQ item 10 -->
+          <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
+            <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
+              Odkud se kosmetika Farmasi odesílá a jak rychle dorazí?
+            </summary>
+            <p class="mt-4 text-gray-700 leading-relaxed pl-4">
+              Objednávky jsou expedovány z evropských skladů. Doručení obvykle trvá několik pracovních dnů v závislosti na zvoleném způsobu dopravy.
+            </p>
+          </details>
+          <!-- FAQ item 11 -->
+          <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
+            <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
+              Je kosmetika Farmasi vhodná jako dárek?
+            </summary>
+            <p class="mt-4 text-gray-700 leading-relaxed pl-4">
+              Ano. Díky elegantnímu balení a široké nabídce je Farmasi kosmetika oblíbenou volbou i jako dárek – pro každodenní péči i speciální příležitosti.
             </p>
           </details>
         </div>
@@ -830,30 +904,41 @@
   <!-- Unique Selling Points Section -->
   <section id="usp" class="py-8" style="background-color: #FDF8F8;">
     <div class="max-w-6xl mx-auto px-4">
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <!-- USP 1 -->
         <div class="flex flex-col items-center text-center">
           <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white border-2 border-farmasi-rose flex items-center justify-center mb-3 shadow-sm">
-            <span class="text-3xl md:text-4xl">💼</span>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 2L2 7v10c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V7l-10-5z" fill="#D4AF37"/>
+              <path d="M12 2v20c5.16-1.26 9-6.45 9-12V7l-9-5z" fill="#C9A020" opacity="0.8"/>
+            </svg>
           </div>
-          <h3 class="font-bold text-base md:text-lg mb-1 text-farmasi-dark">Evropské standardy</h3>
-          <p class="text-gray-600 leading-relaxed text-xs md:text-sm max-w-xs">Produkty vyráběné podle přísných EU norem kvality a certifikované laboratoře.</p>
+          <h3 class="font-bold text-base md:text-lg mb-2 text-farmasi-dark min-h-[3.5rem] flex items-center justify-center">Evropské standardy kvality</h3>
+          <p class="text-gray-600 leading-relaxed text-xs md:text-sm max-w-xs">Produkty Farmasi jsou vyráběny v souladu s evropskou legislativou pro kosmetiku a procházejí testováním v certifikovaných laboratořích. Díky tomu máte jistotu bezpečného složení a stabilní kvality.</p>
         </div>
         <!-- USP 2 -->
         <div class="flex flex-col items-center text-center">
           <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white border-2 border-farmasi-rose flex items-center justify-center mb-3 shadow-sm">
             <span class="text-3xl md:text-4xl">🐇</span>
           </div>
-          <h3 class="font-bold text-base md:text-lg mb-1 text-farmasi-dark">Netestováno na zvířatech</h3>
-          <p class="text-gray-600 leading-relaxed text-xs md:text-sm max-w-xs">Kosmetika <strong class="text-farmasi-dark">cruelty-free</strong>, žádné pokusy na zvířatech. Etická krása pro vás i planetu.</p>
+          <h3 class="font-bold text-base md:text-lg mb-2 text-farmasi-dark min-h-[3.5rem] flex items-center justify-center">Netestováno na zvířatech (cruelty-free)</h3>
+          <p class="text-gray-600 leading-relaxed text-xs md:text-sm max-w-xs">Farmasi se hlásí k principům cruelty-free kosmetiky. Produkty nejsou testovány na zvířatech a respektují evropská pravidla pro etickou výrobu kosmetiky.</p>
         </div>
         <!-- USP 3 -->
         <div class="flex flex-col items-center text-center">
           <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white border-2 border-farmasi-rose flex items-center justify-center mb-3 shadow-sm">
             <span class="text-3xl md:text-4xl">🍃</span>
           </div>
-          <h3 class="font-bold text-base md:text-lg mb-1 text-farmasi-dark">Přírodní složení</h3>
-          <p class="text-gray-600 leading-relaxed text-xs md:text-sm max-w-xs">Bez parabenů, ftalátů a dalších škodlivých látek. Šetrné k vaší pleti.</p>
+          <h3 class="font-bold text-base md:text-lg mb-2 text-farmasi-dark min-h-[3.5rem] flex items-center justify-center">Šetrné a promyšlené složení</h3>
+          <p class="text-gray-600 leading-relaxed text-xs md:text-sm max-w-xs">Kosmetika Farmasi neobsahuje parabeny, ftaláty a další zbytečně zatěžující látky. Složení je navrženo tak, aby bylo šetrné k pleti a vhodné i pro citlivější pokožku.</p>
+        </div>
+        <!-- USP 4 -->
+        <div class="flex flex-col items-center text-center">
+          <div class="w-16 h-16 md:w-20 md:h-20 rounded-full bg-white border-2 border-farmasi-rose flex items-center justify-center mb-3 shadow-sm">
+            <span class="text-3xl md:text-4xl">✨</span>
+          </div>
+          <h3 class="font-bold text-base md:text-lg mb-2 text-farmasi-dark min-h-[3.5rem] flex items-center justify-center">Dermatologicky testováno</h3>
+          <p class="text-gray-600 leading-relaxed text-xs md:text-sm max-w-xs">Všechny produkty Farmasi jsou dermatologicky testované a vhodné pro každodenní použití. Bezpečnost a účinnost jsou naší prioritou.</p>
         </div>
       </div>
     </div>
@@ -1010,7 +1095,7 @@
       if ((month === 0 && day >= 1 && day <= 28)) {
         showBanner = true;
         text = '✨ Přejeme vám hodně úspěchů v novém roce a krásnou pleť po celý rok';
-        ctaText = 'Prohlédnout →';
+        ctaText = 'stát se bombshell →';
         showLink = true;
       }
       // 29.1 - 14.2: Valentýn
