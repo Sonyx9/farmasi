@@ -368,10 +368,13 @@
         const jsonData = JSON.stringify(formDataObj);
         
         // Zkusíme nejdřív GET s mode: 'cors' (abychom viděli odpověď)
-        const params = new URLSearchParams();
-        params.append('data', jsonData);
-        const urlWithParams = CONFIG.SCRIPT_ENDPOINT_URL + '?' + params.toString();
+        // Použijeme encodeURIComponent pro správné kódování JSON dat
+        const encodedData = encodeURIComponent(jsonData);
+        const urlWithParams = CONFIG.SCRIPT_ENDPOINT_URL + '?data=' + encodedData;
         
+        console.log('JSON data length:', jsonData.length);
+        console.log('Full URL length:', urlWithParams.length);
+        console.log('URL (first 200 chars):', urlWithParams.substring(0, 200));
         console.log('Trying GET with CORS first');
         let response;
         let useNoCors = false;
@@ -415,15 +418,21 @@
           }
         }
         
-        // Fallback: no-cors (data se možná odešlou, ale nemůžeme číst odpověď)
+        // Fallback: no-cors s POST a form-data (může fungovat lépe než GET)
         if (useNoCors) {
-          console.log('Using GET with no-cors mode');
-          await fetch(urlWithParams, {
-            method: 'GET',
-            mode: 'no-cors'
+          console.log('Using POST with form-data and no-cors mode');
+          
+          // Vytvoříme FormData objekt
+          const formData = new FormData();
+          formData.append('data', jsonData);
+          
+          await fetch(CONFIG.SCRIPT_ENDPOINT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            body: formData
           });
           
-          console.log('Request sent with no-cors (data should be saved)');
+          console.log('Request sent with no-cors POST (data should be saved)');
           showMessage('success', '✓ Odesláno! Děkujeme za váš zájem, brzy se vám ozveme.');
           form.reset();
           document.getElementById('source').value = window.location.href;
