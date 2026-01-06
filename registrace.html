@@ -365,30 +365,88 @@
       try {
         console.log('Sending data:', formData);
         
-        // Google Apps Script Web Apps mají problémy s CORS, takže vždy použijeme mode: 'no-cors'
-        // S no-cors nemůžeme číst odpověď, ale request projde a data se uloží
-        await fetch(CONFIG.SCRIPT_ENDPOINT_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: {
-            'Content-Type': 'application/json',
-          },
-          body: JSON.stringify(formData)
-        });
+        // Zkusíme nejdřív normální fetch (abychom viděli odpověď)
+        let response;
+        let useNoCors = false;
         
-        // S no-cors nemůžeme číst odpověď, předpokládáme úspěch
-        // (Google Apps Script Web Apps obvykle vrací 200 OK a data se uloží)
-        showMessage('success', '✓ Odesláno! Děkujeme za váš zájem, brzy se vám ozveme.');
-        form.reset();
-        document.getElementById('source').value = window.location.href;
+        try {
+          response = await fetch(CONFIG.SCRIPT_ENDPOINT_URL, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+          });
+          
+          console.log('Response status:', response.status);
+          console.log('Response ok:', response.ok);
+          
+          // Pokud response není ok, zkusíme přečíst chybu
+          if (!response.ok) {
+            const errorText = await response.text();
+            console.error('Error response:', errorText);
+            throw new Error('Server returned error: ' + response.status);
+          }
+          
+          // Přečteme odpověď
+          const responseText = await response.text();
+          console.log('Response text:', responseText);
+          
+          let result;
+          try {
+            result = JSON.parse(responseText);
+          } catch (e) {
+            // Pokud není JSON, předpokládáme úspěch
+            result = { ok: true };
+          }
+          
+          if (result.ok) {
+            showMessage('success', '✓ Odesláno! Děkujeme za váš zájem, brzy se vám ozveme.');
+            form.reset();
+            document.getElementById('source').value = window.location.href;
+            setTimeout(() => {
+              messagesDiv.innerHTML = '';
+            }, 5000);
+            return; // Úspěch, ukončíme
+          } else {
+            throw new Error(result.error || 'Chyba při odesílání');
+          }
+          
+        } catch (fetchError) {
+          // Pokud selže kvůli CORS, použijeme no-cors jako fallback
+          if (fetchError.message.includes('CORS') || fetchError.message.includes('Failed to fetch')) {
+            console.log('CORS error detected, using no-cors fallback');
+            useNoCors = true;
+          } else {
+            throw fetchError; // Jiná chyba, propagujeme ji
+          }
+        }
         
-        setTimeout(() => {
-          messagesDiv.innerHTML = '';
-        }, 5000);
+        // Fallback: použijeme no-cors
+        if (useNoCors) {
+          console.log('Using no-cors mode');
+          await fetch(CONFIG.SCRIPT_ENDPOINT_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(formData)
+          });
+          
+          // S no-cors nemůžeme číst odpověď, předpokládáme úspěch
+          showMessage('success', '✓ Odesláno! Děkujeme za váš zájem, brzy se vám ozveme.');
+          form.reset();
+          document.getElementById('source').value = window.location.href;
+          setTimeout(() => {
+            messagesDiv.innerHTML = '';
+          }, 5000);
+        }
 
       } catch (error) {
         console.error('Error details:', error);
         console.error('Error message:', error.message);
+        console.error('Error stack:', error.stack);
         
         // Zobrazíme detailnější chybovou hlášku
         const errorMsg = error.message || 'Neznámá chyba';
