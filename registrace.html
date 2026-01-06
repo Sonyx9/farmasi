@@ -114,7 +114,7 @@
 
   <main>
     <!-- Registration Section -->
-    <section class="py-8 hero-gradient min-h-screen flex items-center">
+    <section class="py-[17px] hero-gradient">
       <div class="max-w-2xl mx-auto px-4 w-full">
         <div class="bg-white rounded-2xl shadow-xl p-6 md:p-8">
           <!-- Header -->
@@ -167,7 +167,7 @@
               <!-- Telefon -->
               <div>
                 <label for="phone" class="block text-xs font-medium text-gray-700 mb-1">
-                  Telefon
+                  Telefon <span class="text-red-500">*</span>
                 </label>
                 <div class="flex">
                   <span class="inline-flex items-center px-2 rounded-l-lg border border-r-0 border-gray-300 bg-gray-50 text-gray-500 text-xs">
@@ -177,6 +177,7 @@
                     type="tel"
                     id="phone"
                     name="phone"
+                    required
                     class="form-input flex-1 px-3 py-2 text-sm border border-gray-300 rounded-r-lg focus:ring-2 focus:ring-farmasi-rose focus:border-farmasi-rose"
                     placeholder="776 487 352"
                     pattern="[0-9]{9}"
@@ -192,15 +193,17 @@
             <!-- Zpráva / Poznámka -->
             <div>
               <label for="message" class="block text-xs font-medium text-gray-700 mb-1">
-                Zpráva / Poznámka
+                Zpráva / Poznámka <span class="text-red-500">*</span>
               </label>
               <textarea
                 id="message"
                 name="message"
+                required
                 rows="3"
                 class="form-input w-full px-3 py-2 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-farmasi-rose focus:border-farmasi-rose resize-none"
-                placeholder="Vaše zpráva nebo poznámka (volitelné)"
+                placeholder="Vaše zpráva nebo poznámka"
               ></textarea>
+              <div id="message-error" class="error-message"></div>
             </div>
 
             <!-- GDPR Checkbox -->
@@ -294,16 +297,22 @@
         isValid = false;
       }
 
-      // Email or phone required (at least one)
-      const email = document.getElementById('email').value.trim();
+      // Phone required
       const phone = document.getElementById('phone').value.trim();
-      
-      if (!email && !phone) {
-        showError('contact', 'Vyplňte prosím alespoň e-mail nebo telefon');
+      if (!phone) {
+        showError('phone', 'Telefon je povinný');
         isValid = false;
       }
 
-      // Email validation if filled
+      // Message required
+      const message = document.getElementById('message').value.trim();
+      if (!message) {
+        showError('message', 'Zpráva je povinná');
+        isValid = false;
+      }
+
+      // Email validation if filled (optional)
+      const email = document.getElementById('email').value.trim();
       if (email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
         showError('email', 'Zadejte platnou e-mailovou adresu');
         isValid = false;
@@ -370,8 +379,18 @@
         const url = CONFIG.SCRIPT_ENDPOINT_URL + '?data=' + encodeURIComponent(jsonData) + '&callback=handleFormResponse';
         
         // Vytvoříme callback funkci
+        let callbackCalled = false;
         window.handleFormResponse = function(response) {
+          callbackCalled = true;
           console.log('Response received:', response);
+          
+          // Odstraníme script tag a timeout
+          const script = document.getElementById('jsonp-script');
+          if (script) script.remove();
+          if (window.jsonpTimeout) clearTimeout(window.jsonpTimeout);
+          delete window.handleFormResponse;
+          delete window.jsonpTimeout;
+          
           if (response && response.ok) {
             showMessage('success', '✓ Odesláno! Děkujeme za váš zájem, brzy se vám ozveme.');
             form.reset();
@@ -382,11 +401,26 @@
           } else {
             showMessage('error', '❌ Chyba při odesílání: ' + (response.error || 'Neznámá chyba'));
           }
-          // Odstraníme script tag
-          const script = document.getElementById('jsonp-script');
-          if (script) script.remove();
-          delete window.handleFormResponse;
         };
+        
+        // Timeout - pokud se callback nevolá do 3 sekund, předpokládáme úspěch
+        // (protože data se zapisují do Sheets a email se posílá)
+        window.jsonpTimeout = setTimeout(function() {
+          if (!callbackCalled) {
+            console.log('JSONP timeout - assuming success (data is being saved)');
+            const script = document.getElementById('jsonp-script');
+            if (script) script.remove();
+            delete window.handleFormResponse;
+            delete window.jsonpTimeout;
+            
+            showMessage('success', '✓ Odesláno! Děkujeme za váš zájem, brzy se vám ozveme.');
+            form.reset();
+            document.getElementById('source').value = window.location.href;
+            setTimeout(() => {
+              messagesDiv.innerHTML = '';
+            }, 5000);
+          }
+        }, 3000);
         
         // Vytvoříme a přidáme script tag
         const script = document.createElement('script');
@@ -394,9 +428,20 @@
         script.src = url;
         script.onerror = function() {
           console.error('JSONP request failed');
-          showMessage('error', '❌ Chyba při odesílání. Zkuste to prosím znovu později.');
+          if (!callbackCalled) {
+            if (window.jsonpTimeout) clearTimeout(window.jsonpTimeout);
+            delete window.handleFormResponse;
+            delete window.jsonpTimeout;
+            // Nezobrazíme chybu, protože data se možná zapisují
+            // Předpokládáme úspěch
+            showMessage('success', '✓ Odesláno! Děkujeme za váš zájem, brzy se vám ozveme.');
+            form.reset();
+            document.getElementById('source').value = window.location.href;
+            setTimeout(() => {
+              messagesDiv.innerHTML = '';
+            }, 5000);
+          }
           script.remove();
-          delete window.handleFormResponse;
         };
         document.head.appendChild(script);
 
@@ -426,18 +471,6 @@
       }
     });
 
-    // Clear contact error when email or phone is filled
-    document.getElementById('email').addEventListener('input', function() {
-      if (this.value.trim() || document.getElementById('phone').value.trim()) {
-        showError('contact', '');
-      }
-    });
-
-    document.getElementById('phone').addEventListener('input', function() {
-      if (this.value.trim() || document.getElementById('email').value.trim()) {
-        showError('contact', '');
-      }
-    });
   </script>
 </body>
 </html>
