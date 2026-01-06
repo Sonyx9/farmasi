@@ -1,0 +1,11 @@
+# Google Apps Script - neukládat na Git
+script.js
+
+# Environment files
+.env
+.env.local
+
+# OS files
+.DS_Store
+Thumbs.db
+
