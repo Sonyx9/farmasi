@@ -365,25 +365,40 @@
       try {
         console.log('Sending data:', formDataObj);
         
-        // Použijeme GET s mode: 'no-cors' - request projde, ale neuvidíme odpověď
+        // Použijeme JSONP přístup - obejde CORS pomocí <script> tagu
         const jsonData = JSON.stringify(formDataObj);
-        const url = CONFIG.SCRIPT_ENDPOINT_URL + '?data=' + encodeURIComponent(jsonData);
+        const url = CONFIG.SCRIPT_ENDPOINT_URL + '?data=' + encodeURIComponent(jsonData) + '&callback=handleFormResponse';
         
-        console.log('Sending GET request with no-cors mode');
-        await fetch(url, {
-          method: 'GET',
-          mode: 'no-cors'
-        });
+        // Vytvoříme callback funkci
+        window.handleFormResponse = function(response) {
+          console.log('Response received:', response);
+          if (response && response.ok) {
+            showMessage('success', '✓ Odesláno! Děkujeme za váš zájem, brzy se vám ozveme.');
+            form.reset();
+            document.getElementById('source').value = window.location.href;
+            setTimeout(() => {
+              messagesDiv.innerHTML = '';
+            }, 5000);
+          } else {
+            showMessage('error', '❌ Chyba při odesílání: ' + (response.error || 'Neznámá chyba'));
+          }
+          // Odstraníme script tag
+          const script = document.getElementById('jsonp-script');
+          if (script) script.remove();
+          delete window.handleFormResponse;
+        };
         
-        // S no-cors nemůžeme číst odpověď, ale request by měl projít
-        // Předpokládáme úspěch a zobrazíme zprávu
-        console.log('Request sent (no-cors mode - cannot read response)');
-        showMessage('success', '✓ Odesláno! Děkujeme za váš zájem, brzy se vám ozveme.');
-        form.reset();
-        document.getElementById('source').value = window.location.href;
-        setTimeout(() => {
-          messagesDiv.innerHTML = '';
-        }, 5000);
+        // Vytvoříme a přidáme script tag
+        const script = document.createElement('script');
+        script.id = 'jsonp-script';
+        script.src = url;
+        script.onerror = function() {
+          console.error('JSONP request failed');
+          showMessage('error', '❌ Chyba při odesílání. Zkuste to prosím znovu později.');
+          script.remove();
+          delete window.handleFormResponse;
+        };
+        document.head.appendChild(script);
 
       } catch (error) {
         console.error('Error details:', error);
