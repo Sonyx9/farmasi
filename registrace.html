@@ -352,7 +352,7 @@
       submitBtn.textContent = 'Odesílám…';
 
       // Prepare data
-      const formData = {
+      const formDataObj = {
         token: CONFIG.SECRET_TOKEN,
         name: document.getElementById('name').value.trim(),
         email: document.getElementById('email').value.trim() || '',
@@ -363,7 +363,11 @@
       };
 
       try {
-        console.log('Sending data:', formData);
+        console.log('Sending data:', formDataObj);
+        
+        // Pro no-cors musíme poslat data jako JSON string v body
+        // Google Apps Script potřebuje správně parsovat postData.contents
+        const jsonData = JSON.stringify(formDataObj);
         
         // Zkusíme nejdřív normální fetch (abychom viděli odpověď)
         let response;
@@ -375,7 +379,7 @@
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData)
+            body: jsonData
           });
           
           console.log('Response status:', response.status);
@@ -422,16 +426,16 @@
           }
         }
         
-        // Fallback: použijeme no-cors
+        // Fallback: použijeme no-cors s JSON stringem
         if (useNoCors) {
-          console.log('Using no-cors mode');
+          console.log('Using no-cors mode with JSON body');
           await fetch(CONFIG.SCRIPT_ENDPOINT_URL, {
             method: 'POST',
             mode: 'no-cors',
             headers: {
               'Content-Type': 'application/json',
             },
-            body: JSON.stringify(formData)
+            body: jsonData
           });
           
           // S no-cors nemůžeme číst odpověď, předpokládáme úspěch
