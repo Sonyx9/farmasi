@@ -245,7 +245,7 @@
     // CONFIGURATION
     // ============================================
     const CONFIG = {
-      SCRIPT_ENDPOINT_URL: 'https://script.google.com/macros/s/AKfycbwr4fxTpuVpX7GD8hEW9IT46rICPmSjKwcV3hzCmrp4pvQaynTEGoms8YVHwFsO2ZQD0w/exec',
+      SCRIPT_ENDPOINT_URL: 'https://script.google.com/macros/s/AKfycbzu_feN85hnjtzr2_ydhheVGY7ixPRzNiw8pVR1394FSMPX2JA8mMdFaZfv9CIaPBVpyw/exec',
       SECRET_TOKEN: '1506-123-12-157489-13589-farmasi'
     };
     // ============================================
@@ -367,31 +367,70 @@
         
         const jsonData = JSON.stringify(formDataObj);
         
-        // Vždy použijeme GET s URL parametry, protože Google Apps Script Web Apps
-        // mají problémy s CORS u POST requestů
-        console.log('Using GET with URL parameters (works better with no-cors)');
-        
-        // Vytvoříme URL s parametry
+        // Zkusíme nejdřív GET s mode: 'cors' (abychom viděli odpověď)
         const params = new URLSearchParams();
         params.append('data', jsonData);
-        
         const urlWithParams = CONFIG.SCRIPT_ENDPOINT_URL + '?' + params.toString();
-        console.log('GET URL length:', urlWithParams.length);
         
-        // Odesíláme GET request s no-cors (funguje spolehlivě)
-        await fetch(urlWithParams, {
-          method: 'GET',
-          mode: 'no-cors'
-        });
+        console.log('Trying GET with CORS first');
+        let response;
+        let useNoCors = false;
         
-        // S no-cors nemůžeme číst odpověď, ale data by se měla odeslat
-        console.log('Request sent successfully');
-        showMessage('success', '✓ Odesláno! Děkujeme za váš zájem, brzy se vám ozveme.');
-        form.reset();
-        document.getElementById('source').value = window.location.href;
-        setTimeout(() => {
-          messagesDiv.innerHTML = '';
-        }, 5000);
+        try {
+          response = await fetch(urlWithParams, {
+            method: 'GET',
+            mode: 'cors'
+          });
+          
+          console.log('Response status:', response.status);
+          const responseText = await response.text();
+          console.log('Response text:', responseText);
+          
+          let result;
+          try {
+            result = JSON.parse(responseText);
+          } catch (e) {
+            result = { ok: response.ok };
+          }
+          
+          if (result.ok) {
+            showMessage('success', '✓ Odesláno! Děkujeme za váš zájem, brzy se vám ozveme.');
+            form.reset();
+            document.getElementById('source').value = window.location.href;
+            setTimeout(() => {
+              messagesDiv.innerHTML = '';
+            }, 5000);
+            return; // Úspěch
+          } else {
+            throw new Error(result.error || 'Chyba při odesílání');
+          }
+          
+        } catch (fetchError) {
+          // Pokud selže kvůli CORS, použijeme no-cors jako fallback
+          if (fetchError.message.includes('CORS') || fetchError.message.includes('Failed to fetch')) {
+            console.log('CORS error, using no-cors fallback');
+            useNoCors = true;
+          } else {
+            throw fetchError;
+          }
+        }
+        
+        // Fallback: no-cors (data se možná odešlou, ale nemůžeme číst odpověď)
+        if (useNoCors) {
+          console.log('Using GET with no-cors mode');
+          await fetch(urlWithParams, {
+            method: 'GET',
+            mode: 'no-cors'
+          });
+          
+          console.log('Request sent with no-cors (data should be saved)');
+          showMessage('success', '✓ Odesláno! Děkujeme za váš zájem, brzy se vám ozveme.');
+          form.reset();
+          document.getElementById('source').value = window.location.href;
+          setTimeout(() => {
+            messagesDiv.innerHTML = '';
+          }, 5000);
+        }
 
       } catch (error) {
         console.error('Error details:', error);
