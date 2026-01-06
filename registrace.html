@@ -365,34 +365,25 @@
       try {
         console.log('Sending data:', formDataObj);
         
-        // Jednoduchý GET request s daty v URL (funguje spolehlivě)
+        // Použijeme GET s mode: 'no-cors' - request projde, ale neuvidíme odpověď
         const jsonData = JSON.stringify(formDataObj);
         const url = CONFIG.SCRIPT_ENDPOINT_URL + '?data=' + encodeURIComponent(jsonData);
         
-        const response = await fetch(url, {
-          method: 'GET'
+        console.log('Sending GET request with no-cors mode');
+        await fetch(url, {
+          method: 'GET',
+          mode: 'no-cors'
         });
         
-        const responseText = await response.text();
-        console.log('Response:', responseText);
-        
-        let result;
-        try {
-          result = JSON.parse(responseText);
-        } catch (e) {
-          result = { ok: false, error: 'Invalid response' };
-        }
-        
-        if (result.ok) {
-          showMessage('success', '✓ Odesláno! Děkujeme za váš zájem, brzy se vám ozveme.');
-          form.reset();
-          document.getElementById('source').value = window.location.href;
-          setTimeout(() => {
-            messagesDiv.innerHTML = '';
-          }, 5000);
-        } else {
-          throw new Error(result.error || 'Chyba při odesílání');
-        }
+        // S no-cors nemůžeme číst odpověď, ale request by měl projít
+        // Předpokládáme úspěch a zobrazíme zprávu
+        console.log('Request sent (no-cors mode - cannot read response)');
+        showMessage('success', '✓ Odesláno! Děkujeme za váš zájem, brzy se vám ozveme.');
+        form.reset();
+        document.getElementById('source').value = window.location.href;
+        setTimeout(() => {
+          messagesDiv.innerHTML = '';
+        }, 5000);
 
       } catch (error) {
         console.error('Error details:', error);
