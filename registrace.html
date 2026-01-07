@@ -114,6 +114,35 @@
       opacity: 0;
       pointer-events: none;
     }
+    
+    .faq-item {
+      border-bottom: 1px solid #F0F0F0;
+    }
+    
+    .faq-item summary {
+      list-style: none;
+      cursor: pointer;
+      padding: 1rem 0;
+      position: relative;
+    }
+    
+    .faq-item summary::-webkit-details-marker {
+      display: none;
+    }
+    
+    .faq-item summary::after {
+      content: '+';
+      position: absolute;
+      right: 0;
+      font-size: 1.5rem;
+      color: #D4AF37;
+      transition: transform 0.3s ease;
+    }
+    
+    .faq-item[open] summary::after {
+      content: '−';
+      transform: rotate(180deg);
+    }
   </style>
 </head>
 <body class="font-sans text-gray-800 bg-gray-50 relative">
@@ -273,77 +302,121 @@
             Nejčastější dotazy k <span class="gold-accent">registraci</span> do Farmasi
           </h2>
           
-          <div class="space-y-6">
+          <div class="space-y-4">
             <!-- FAQ Item 1 -->
-            <div class="border-b border-gray-200 pb-4">
-              <h3 class="text-lg font-semibold text-farmasi-dark mb-2">Co mi registrace do Farmasi přinese?</h3>
-              <p class="text-gray-700 text-sm leading-relaxed">Registrací získáte okamžitou slevu 23 % na všechny produkty Farmasi. Zároveň máte možnost výhodně nakupovat dlouhodobě a případně si přivydělat doporučováním produktů.</p>
-            </div>
+            <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
+              <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
+                Co mi registrace do Farmasi přinese?
+              </summary>
+              <p class="mt-4 text-gray-700 leading-relaxed pl-4">
+                Registrací získáte okamžitou slevu 23 % na všechny produkty Farmasi. Zároveň máte možnost výhodně nakupovat dlouhodobě a případně si přivydělat doporučováním produktů.
+              </p>
+            </details>
 
             <!-- FAQ Item 2 -->
-            <div class="border-b border-gray-200 pb-4">
-              <h3 class="text-lg font-semibold text-farmasi-dark mb-2">Je registrace do Farmasi zdarma?</h3>
-              <p class="text-gray-700 text-sm leading-relaxed">Ano. Registrace je zcela zdarma a není s ní spojen žádný vstupní poplatek ani povinné nákupy.</p>
-            </div>
+            <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
+              <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
+                Je registrace do Farmasi zdarma?
+              </summary>
+              <p class="mt-4 text-gray-700 leading-relaxed pl-4">
+                Ano. Registrace je zcela zdarma a není s ní spojen žádný vstupní poplatek ani povinné nákupy.
+              </p>
+            </details>
 
             <!-- FAQ Item 3 -->
-            <div class="border-b border-gray-200 pb-4">
-              <h3 class="text-lg font-semibold text-farmasi-dark mb-2">Musím po registraci kosmetiku prodávat?</h3>
-              <p class="text-gray-700 text-sm leading-relaxed">Ne. Registrace vás k ničemu nezavazuje. Mnoho zákaznic se registruje pouze proto, aby mohly nakupovat kosmetiku se slevou pro vlastní potřebu.</p>
-            </div>
+            <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
+              <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
+                Musím po registraci kosmetiku prodávat?
+              </summary>
+              <p class="mt-4 text-gray-700 leading-relaxed pl-4">
+                Ne. Registrace vás k ničemu nezavazuje. Mnoho zákaznic se registruje pouze proto, aby mohly nakupovat kosmetiku se slevou pro vlastní potřebu.
+              </p>
+            </details>
 
             <!-- FAQ Item 4 -->
-            <div class="border-b border-gray-200 pb-4">
-              <h3 class="text-lg font-semibold text-farmasi-dark mb-2">Jak dlouho registrace trvá?</h3>
-              <p class="text-gray-700 text-sm leading-relaxed">Registrace je velmi rychlá a jednoduchá. Zabere přibližně 2 minuty a výhody můžete využívat ihned po dokončení.</p>
-            </div>
+            <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
+              <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
+                Jak dlouho registrace trvá?
+              </summary>
+              <p class="mt-4 text-gray-700 leading-relaxed pl-4">
+                Registrace je velmi rychlá a jednoduchá. Zabere přibližně 2 minuty a výhody můžete využívat ihned po dokončení.
+              </p>
+            </details>
 
             <!-- FAQ Item 5 -->
-            <div class="border-b border-gray-200 pb-4">
-              <h3 class="text-lg font-semibold text-farmasi-dark mb-2">Mohu se zaregistrovat, i když chci jen slevu?</h3>
-              <p class="text-gray-700 text-sm leading-relaxed">Ano. Registrace je ideální i pro ty, kteří chtějí pouze výhodně nakupovat a neřeší přivýdělek ani budování týmu.</p>
-            </div>
+            <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
+              <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
+                Mohu se zaregistrovat, i když chci jen slevu?
+              </summary>
+              <p class="mt-4 text-gray-700 leading-relaxed pl-4">
+                Ano. Registrace je ideální i pro ty, kteří chtějí pouze výhodně nakupovat a neřeší přivýdělek ani budování týmu.
+              </p>
+            </details>
 
             <!-- FAQ Item 6 -->
-            <div class="border-b border-gray-200 pb-4">
-              <h3 class="text-lg font-semibold text-farmasi-dark mb-2">Jak funguje sleva 23 %?</h3>
-              <p class="text-gray-700 text-sm leading-relaxed">Po registraci se vám automaticky odečte 23% sleva z cen produktů při nákupu. Sleva platí na celý sortiment Farmasi.</p>
-            </div>
+            <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
+              <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
+                Jak funguje sleva 23 %?
+              </summary>
+              <p class="mt-4 text-gray-700 leading-relaxed pl-4">
+                Po registraci se vám automaticky odečte 23% sleva z cen produktů při nákupu. Sleva platí na celý sortiment Farmasi.
+              </p>
+            </details>
 
             <!-- FAQ Item 7 -->
-            <div class="border-b border-gray-200 pb-4">
-              <h3 class="text-lg font-semibold text-farmasi-dark mb-2">Je registrace časově nebo smluvně vázaná?</h3>
-              <p class="text-gray-700 text-sm leading-relaxed">Ne. Registrace není časově omezená a neobsahuje žádné smluvní závazky. Kdykoliv můžete přestat nakupovat nebo být neaktivní.</p>
-            </div>
+            <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
+              <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
+                Je registrace časově nebo smluvně vázaná?
+              </summary>
+              <p class="mt-4 text-gray-700 leading-relaxed pl-4">
+                Ne. Registrace není časově omezená a neobsahuje žádné smluvní závazky. Kdykoliv můžete přestat nakupovat nebo být neaktivní.
+              </p>
+            </details>
 
             <!-- FAQ Item 8 -->
-            <div class="border-b border-gray-200 pb-4">
-              <h3 class="text-lg font-semibold text-farmasi-dark mb-2">Mohu se později rozhodnout pro spolupráci?</h3>
-              <p class="text-gray-700 text-sm leading-relaxed">Ano. Pokud se později rozhodnete produkty doporučovat nebo budovat tým, máte tuto možnost. Není to ale podmínkou registrace.</p>
-            </div>
+            <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
+              <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
+                Mohu se později rozhodnout pro spolupráci?
+              </summary>
+              <p class="mt-4 text-gray-700 leading-relaxed pl-4">
+                Ano. Pokud se později rozhodnete produkty doporučovat nebo budovat tým, máte tuto možnost. Není to ale podmínkou registrace.
+              </p>
+            </details>
 
             <!-- FAQ Item 9 -->
-            <div class="border-b border-gray-200 pb-4">
-              <h3 class="text-lg font-semibold text-farmasi-dark mb-2">Jak mi pomůžete s registrací nebo výběrem produktů?</h3>
-              <p class="text-gray-700 text-sm leading-relaxed">Pokud si nejste jistí, rádi vám poradíme s registrací i výběrem kosmetiky. Stačí nás kontaktovat přes formulář, e-mail nebo telefon.</p>
-            </div>
+            <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
+              <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
+                Jak mi pomůžete s registrací nebo výběrem produktů?
+              </summary>
+              <p class="mt-4 text-gray-700 leading-relaxed pl-4">
+                Pokud si nejste jistí, rádi vám poradíme s registrací i výběrem kosmetiky. Stačí nás kontaktovat přes formulář, e-mail nebo telefon.
+              </p>
+            </details>
 
             <!-- FAQ Item 10 -->
-            <div class="border-b border-gray-200 pb-4">
-              <h3 class="text-lg font-semibold text-farmasi-dark mb-2">Pro koho je registrace Farmasi vhodná?</h3>
-              <p class="text-gray-700 text-sm leading-relaxed">Registrace je vhodná pro:</p>
-              <ul class="list-disc list-inside text-gray-700 text-sm mt-2 space-y-1 ml-4">
+            <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
+              <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
+                Pro koho je registrace Farmasi vhodná?
+              </summary>
+              <p class="mt-4 text-gray-700 leading-relaxed pl-4">
+                Registrace je vhodná pro:
+              </p>
+              <ul class="list-disc list-inside text-gray-700 text-sm mt-2 space-y-1 ml-8">
                 <li>ženy, které chtějí kvalitní kosmetiku se slevou</li>
                 <li>zákaznice hledající dlouhodobě výhodný nákup</li>
                 <li>ty, kteří zvažují nezávazný přivýdělek</li>
               </ul>
-            </div>
+            </details>
 
             <!-- FAQ Item 11 -->
-            <div class="pb-4">
-              <h3 class="text-lg font-semibold text-farmasi-dark mb-2">Mohu se kdykoliv odhlásit?</h3>
-              <p class="text-gray-700 text-sm leading-relaxed">Ano. Pokud se rozhodnete Farmasi dále nevyužívat, žádné další kroky nejsou nutné – registrace vás k ničemu nezavazuje.</p>
-            </div>
+            <details class="faq-item bg-farmasi-pink/30 p-6 rounded-lg">
+              <summary class="font-bold text-lg text-farmasi-dark cursor-pointer">
+                Mohu se kdykoliv odhlásit?
+              </summary>
+              <p class="mt-4 text-gray-700 leading-relaxed pl-4">
+                Ano. Pokud se rozhodnete Farmasi dále nevyužívat, žádné další kroky nejsou nutné – registrace vás k ničemu nezavazuje.
+              </p>
+            </details>
           </div>
         </div>
       </div>
@@ -530,6 +603,16 @@
   </script>
 
   <script>
+    // ============================================
+    // URL REDIRECT - Remove .html extension
+    // ============================================
+    if (window.location.pathname.includes('.html')) {
+      const cleanPath = window.location.pathname.replace(/\.html$/, '');
+      const newUrl = window.location.origin + cleanPath + window.location.search + window.location.hash;
+      window.history.replaceState({}, '', newUrl);
+    }
+    // ============================================
+    
     // ============================================
     // CONFIGURATION
     // ============================================
