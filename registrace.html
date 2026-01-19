@@ -153,6 +153,176 @@
       transform: rotate(180deg);
     }
     
+    /* Modal Styles */
+    .modal-overlay {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: rgba(0, 0, 0, 0.5);
+      backdrop-filter: blur(4px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+      animation: fadeIn 0.3s ease;
+    }
+    
+    .modal-overlay.active {
+      display: flex;
+    }
+    
+    .modal-content {
+      background: white;
+      border-radius: 20px;
+      padding: 1.5rem;
+      max-width: 500px;
+      width: 90%;
+      max-height: 85vh;
+      overflow-y: auto;
+      position: relative;
+      animation: slideUp 0.3s ease;
+      box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+      margin: 1rem;
+    }
+    
+    .modal-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: #f3f4f6;
+      border: none;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+      font-size: 1.5rem;
+      color: #6b7280;
+    }
+    
+    .modal-close:hover {
+      background: #e5e7eb;
+      transform: rotate(90deg);
+    }
+    
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+      }
+      to {
+        opacity: 1;
+      }
+    }
+    
+    @keyframes slideUp {
+      from {
+        transform: translateY(30px);
+        opacity: 0;
+      }
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+    
+    .contact-photo {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid #E8B4B8;
+      box-shadow: 0 10px 30px rgba(232, 180, 184, 0.3);
+      margin: 0 auto 1rem;
+      display: block;
+    }
+    
+    @media (max-height: 700px) {
+      .contact-photo {
+        width: 100px;
+        height: 100px;
+        margin: 0 auto 0.75rem;
+      }
+      
+      .modal-content {
+        padding: 1rem;
+        max-height: 95vh;
+      }
+      
+      .contact-item {
+        padding: 0.75rem;
+        margin-bottom: 0.75rem;
+      }
+      
+      .contact-item-icon {
+        width: 40px;
+        height: 40px;
+        font-size: 1.25rem;
+      }
+    }
+    
+    .contact-item {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 1rem;
+      background: #F8E8E8;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      transition: all 0.3s ease;
+      cursor: pointer;
+    }
+    
+    .contact-item:hover {
+      background: #E8B4B8;
+      transform: translateX(5px);
+    }
+    
+    .contact-item-icon {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+    
+    .contact-item-content {
+      flex: 1;
+    }
+    
+    .contact-item-label {
+      font-size: 0.875rem;
+      color: #6b7280;
+      margin-bottom: 0.25rem;
+    }
+    
+    .contact-item-value {
+      font-weight: 600;
+      color: #2C2C2C;
+      font-size: 1rem;
+    }
+    
+    .contact-item-link {
+      color: #2C2C2C;
+      text-decoration: none;
+      transition: color 0.3s ease;
+    }
+    
+    .contact-item:hover .contact-item-link {
+      color: white;
+    }
+    
+    .contact-item:hover .contact-item-label {
+      color: white;
+    }
   </style>
 </head>
 <body class="font-sans text-gray-800 bg-gray-50 relative">
@@ -181,7 +351,7 @@
 
   <main class="relative z-10">
     <!-- Hero Section -->
-    <section class="relative pt-12 pb-8 hero-gradient">
+    <section class="relative pt-12 pb-4 hero-gradient">
       <div class="relative max-w-4xl mx-auto px-4 w-full z-10">
         <div class="text-center mb-8">
           <h1 class="text-3xl md:text-5xl font-bold mb-4 text-farmasi-dark leading-tight">
@@ -195,7 +365,7 @@
     </section>
 
     <!-- Registration Section with Benefits -->
-    <section class="relative py-12 hero-gradient">
+    <section class="relative pt-6 pb-12 hero-gradient">
       <div class="relative max-w-6xl mx-auto px-4 w-full z-10">
         <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-stretch">
           <!-- Left: Benefits -->
@@ -435,6 +605,20 @@
       </div>
     </section>
 
+    <!-- Quick Contact Button Section -->
+    <section class="relative py-8 hero-gradient">
+      <div class="relative max-w-4xl mx-auto px-4 w-full z-10">
+        <div class="text-center">
+          <button id="quick-contact-btn" class="btn-primary text-white font-semibold px-8 py-4 rounded-lg text-lg shadow-lg flex items-center justify-center gap-2 mx-auto">
+            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path>
+            </svg>
+            Rychlý kontakt
+          </button>
+        </div>
+      </div>
+    </section>
+
     <!-- FAQ Section -->
     <section class="relative py-12 hero-gradient">
       <div class="relative max-w-4xl mx-auto px-4 w-full z-10">
@@ -563,6 +747,71 @@
       </div>
     </section>
   </main>
+
+  <!-- Contact Modal -->
+  <div id="contact-modal" class="modal-overlay">
+    <div class="modal-content">
+      <button class="modal-close" id="modal-close">&times;</button>
+      <div class="text-center">
+        <img 
+          src="https://farmasi-customer-v2.s3.eu-west-1.amazonaws.com/Customers/Images/c5204692-e596-4220-8082-d4a966d51259_1.webp" 
+          alt="Kontakt" 
+          class="contact-photo"
+        />
+        <p class="text-lg font-semibold mb-2 text-farmasi-dark">
+          Pavla Svobodová
+        </p>
+        <p class="text-sm text-gray-600 mb-4">
+          Váš poradce s kosmetikou
+        </p>
+        
+        <div class="space-y-2">
+          <!-- WhatsApp -->
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <span>💬</span>
+            </div>
+            <div class="contact-item-content">
+              <div class="contact-item-label">WhatsApp</div>
+              <a href="https://wa.me/420777298071" target="_blank" class="contact-item-value contact-item-link">
+                +420 777 298 071
+              </a>
+            </div>
+          </div>
+          
+          <!-- Telefon -->
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <span>📞</span>
+            </div>
+            <div class="contact-item-content">
+              <div class="contact-item-label">Telefon</div>
+              <a href="tel:+420777298071" class="contact-item-value contact-item-link">
+                +420 777 298 071
+              </a>
+            </div>
+          </div>
+          
+          <!-- Email -->
+          <div class="contact-item">
+            <div class="contact-item-icon">
+              <span>✉️</span>
+            </div>
+            <div class="contact-item-content">
+              <div class="contact-item-label">E-mail</div>
+              <a href="mailto:farmasi@freedomfashion.cz" class="contact-item-value contact-item-link">
+                farmasi@freedomfashion.cz
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <p class="text-xs text-gray-500 mt-4">
+          Jsme tu pro vás každý den!
+        </p>
+      </div>
+    </div>
+  </div>
 
   <!-- Structured Data -->
   <script type="application/ld+json">
@@ -1006,6 +1255,60 @@
       } else {
         showError('email', '');
       }
+    });
+
+    // Contact Modal
+    const contactModal = document.getElementById('contact-modal');
+    const quickContactBtn = document.getElementById('quick-contact-btn');
+    const modalClose = document.getElementById('modal-close');
+    
+    function openModal() {
+      contactModal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    
+    function closeModal() {
+      contactModal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    
+    if (quickContactBtn) {
+      quickContactBtn.addEventListener('click', (e) => {
+        e.preventDefault();
+        openModal();
+      });
+    }
+    
+    if (modalClose) {
+      modalClose.addEventListener('click', closeModal);
+    }
+    
+    if (contactModal) {
+      contactModal.addEventListener('click', (e) => {
+        if (e.target === contactModal) {
+          closeModal();
+        }
+      });
+    }
+    
+    // Close modal on Escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && contactModal && contactModal.classList.contains('active')) {
+        closeModal();
+      }
+    });
+    
+    // Make entire contact item clickable
+    document.querySelectorAll('.contact-item').forEach(item => {
+      item.addEventListener('click', (e) => {
+        // Don't trigger if clicking directly on the link
+        if (e.target.tagName !== 'A' && !e.target.closest('a')) {
+          const link = item.querySelector('.contact-item-link');
+          if (link) {
+            link.click();
+          }
+        }
+      });
     });
 
   </script>
